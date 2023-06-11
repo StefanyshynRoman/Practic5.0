@@ -28,12 +28,13 @@ public class FindProduct {
 
 
     public void find(String productType) {
+        String totalQuantity="totalQuantity";
         Bson filter = eq("type", productType);
-        Bson groupBy = Aggregates.group("$address", Accumulators.sum("totalQuantity", "$quantity"));
-        Bson sort = Aggregates.sort(Sorts.descending("totalQuantity"));
+        Bson groupBy = Aggregates.group("$address", Accumulators.sum(totalQuantity, "$quantity"));
+        Bson sort = Aggregates.sort(Sorts.descending(totalQuantity));
         Bson project = Aggregates.project(Projections.fields(
                 Projections.include("_id"),
-                Projections.computed("totalQuantity", "$totalQuantity")));
+                Projections.computed(totalQuantity, "$totalQuantity")));
         int limit = 1;
 
         MongoCollection<Document> productsCollection = database.getCollection("Products");
@@ -50,9 +51,9 @@ public class FindProduct {
 
             logger.info("The store with the largest number of products of the type '" + productType + "': " + storeAddress);
 
-            Integer totalQuantity = firstDocument.getInteger("totalQuantity");
-            if (totalQuantity != null) {
-                logger.info("Total Quantity: " + totalQuantity);
+            Integer totalQuantityAll = firstDocument.getInteger(totalQuantity);
+            if (totalQuantityAll != null) {
+                logger.info("Total Quantity: " + totalQuantityAll);
             } else {
                 logger.info("product not found : " + productType);
             }

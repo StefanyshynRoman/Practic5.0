@@ -51,12 +51,9 @@ public class Product {
         this.valid = valid;
     }
 
-   //public Product(String name, String type, int quantity, String address) {
-        public Product(String name, String type,  String address) {
+
+        public Product(String name) {
         this.productName = name;
-        this.type = type;
-       // this.quantity=quantity;
-        this.address=address;
 
     }
 
@@ -65,8 +62,6 @@ public class Product {
     public String toString() {
         return "Product{" +
                 "name: " + '"' + productName + '"' +
-                ", type: " + '"'+type + '"' +
-                ", address: " +'"'+ address + '"' +
                 '}';
 
     }

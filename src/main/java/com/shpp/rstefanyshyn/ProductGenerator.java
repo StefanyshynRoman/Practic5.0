@@ -1,7 +1,6 @@
 package com.shpp.rstefanyshyn;
 
 import com.mongodb.client.MongoDatabase;
-import jakarta.validation.ConstraintViolation;
 import jakarta.validation.Validation;
 import jakarta.validation.Validator;
 import jakarta.validation.ValidatorFactory;
@@ -58,17 +57,19 @@ public class ProductGenerator implements Constant {
             String randomType = types.get(random.nextInt(types.size()));
             String randomStore = stores.get(random.nextInt(stores.size()));
 
-            Product product = new Product(generateRandomProductName(), randomType,randomStore);
-            Set<ConstraintViolation<Product>> violations = validator.validate(product);
+            Product product = new Product(generateRandomProductName());
             if (validator.validate(product).isEmpty()) {
                 Document document = new Document("name", product.getProductName())
-                        .append("type", product.getProductType().toLowerCase())
-                        .append("address", product.getProductAddress())
+                        .append("type", randomType.toLowerCase())
+                        .append("address", randomStore)
                         .append("quantity",random.nextInt(100));
                 documents.add(document);
                 productsCollection.insertOne(document);
                 generatedProducts.incrementAndGet();
                 validProducts.incrementAndGet();
+                if(i%10000==0){
+                    logger.info("Products added: {}", i);
+                }
             } else {
                 generatedProducts.incrementAndGet();
                 numberOfProducts++;
@@ -79,7 +80,7 @@ public class ProductGenerator implements Constant {
         stopWatch.stop();
         numberOfProducts = generatedProducts.get();
         logger.info("Generation products: {}", numberOfProducts);
-        logger.info("Generation products is over: seconds - {}", stopWatch.taken() / THOUSAND);
+        logger.info("Generation products is over: seconds - {}", stopWatch.taken() / THOUSAND_TO_TIME);
         logger.warn("RPS - {}, ",1000.0 * numberOfProducts / stopWatch.taken());
         logger.warn("All product: {}, Product valid: {}, Product invalid: {}" , numberOfProducts, validProducts.get(), numberOfProducts - validProducts.get());
 

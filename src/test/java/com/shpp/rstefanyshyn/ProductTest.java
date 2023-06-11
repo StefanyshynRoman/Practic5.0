@@ -10,7 +10,7 @@ public class ProductTest {
         String type = "Test type";
         String address = "Test address";
 
-        Product product = new Product(name, type, address);
+        Product product = new Product(name);
 
     @Test
     public void testGettersAndSetters() {

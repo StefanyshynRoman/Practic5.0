@@ -23,7 +23,6 @@ public class BDConnection implements Constant {
         if (mongoClient != null) {
             mongoClient.close();
             logger.info("Disconnected from the MongoDB database.");
-          //  return true;
         }
         return false;
     }
