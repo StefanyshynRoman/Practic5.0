@@ -81,7 +81,7 @@ public class ProductGenerator implements Constant {
         numberOfProducts = generatedProducts.get();
         logger.info("Generation products: {}", numberOfProducts);
         logger.info("Generation products is over: seconds - {}", stopWatch.taken() / THOUSAND_TO_TIME);
-        logger.warn("RPS - {}, ",1000.0 * numberOfProducts / stopWatch.taken());
+        logger.warn("RPS - {}, ",THOUSAND_TO_TIME * numberOfProducts / stopWatch.taken());
         logger.warn("All product: {}, Product valid: {}, Product invalid: {}" , numberOfProducts, validProducts.get(), numberOfProducts - validProducts.get());
 
 

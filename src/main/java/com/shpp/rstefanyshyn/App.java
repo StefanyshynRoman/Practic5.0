@@ -22,7 +22,7 @@ public class App implements Constant {
     static ProductGenerator productGenerator;
 
 
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
 
         BDConnection bdConnection = new BDConnection();
         bdConnection.connect();
@@ -42,9 +42,9 @@ public class App implements Constant {
         findProduct.find(productType);
         stopWatch.stop();
         logger.warn("Time (second) of find {} ", (stopWatch.taken()) / THOUSAND_TO_TIME);
-        bdConnection.disconnect();
+        disconnect();
     }
-    private static void disconnect() throws SQLException {
+    private static void disconnect()  {
         bdConnection.disconnect();
     }
 

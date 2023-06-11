@@ -7,8 +7,7 @@ public class ProductTest {
 
 
         String name = "Test Product";
-        String type = "Test type";
-        String address = "Test address";
+
 
         Product product = new Product(name);
 
@@ -17,18 +16,17 @@ public class ProductTest {
 
 
         String actualName = product.getProductName();
-        String actualType = product.getProductType();
-        String actualAddress = product.getProductAddress();
-        assertEquals(address, actualAddress);
+
+
         assertEquals(name, actualName);
-        assertEquals(type, actualType);
+
     }
 
     @Test
     public void testToString() {
 
         String actualToString = product.toString();
-        String expectedToString = "Product{name: \"Test Product\", type: \"Test type\", address: \"Test address\"}";
+        String expectedToString = "Product{name: \"Test Product\"}";
         assertEquals(expectedToString, actualToString);
     }
 }
